@@ -60,13 +60,13 @@ function FileDownloader({
         )
     }
     return (
-        <a href={disabled ? "#" : url} target="_blank" rel="noopener noreferrer" className='transparent'>
+        <a href={disabled ? "#" : url} target="_blank" rel="noopener noreferrer" className='transparent max-lg:w-full'>
             <Button
                 type='button'
                 // loading={loading}
                 // onClick={handleDownload}
                 disabled={disabled}
-                className='not-disabled:cursor-pointer bg-green-600 disabled:bg-green-700 hover:bg-green-700' >
+                className='not-disabled:cursor-pointer bg-green-600 disabled:bg-green-700 hover:bg-green-700 max-lg:w-full' >
                 {buttonText}
             </Button>
         </a>

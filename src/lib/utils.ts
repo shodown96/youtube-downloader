@@ -22,3 +22,8 @@ export function getLimitedText(text: string, limit = 200) {
   }
   return text
 }
+
+export function isValidYoutubeURL(url:string){
+  const regex = /^(https?:\/\/)?(www\.)?(youtube\.com\/(watch\?v=|embed\/|shorts\/|live\/)|youtu\.be\/)([\w-]{11})(&.*)?$/;
+  return regex.test(url);
+}
