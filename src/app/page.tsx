@@ -12,7 +12,7 @@ import {
   SelectValue
 } from "@/components/ui/select";
 import { useDownloadStore, Values } from "@/lib/store";
-import { formatTime } from "@/lib/utils";
+import { formatTime, getLimitedText } from "@/lib/utils";
 import axios from "axios";
 import { ChevronRight } from "lucide-react";
 import Image from "next/image";
@@ -71,14 +71,13 @@ export default function Home() {
   }
 
   return (
-    <div className="flex flex-col justify-between min-h-screen p-20">
-
-      <main className="flex flex-col gap-2">
-        <div className="text-center">
-          <h1 className="text-lg font-semibold text-gray-800">YouTube Downloader</h1>
-          <p className="text-xs text-gray-500">Still a work in progress, for educational purposes only 🫣</p>
+    <div className="flex flex-col items-center justify-between min-h-screen p-20">
+      <main className="flex flex-col gap-6 sm:w-[500px] md:w-[700px] flex-1 transition-all">
+        <div className="text-center mt-20">
+          <h1 className="text-3xl font-semibold text-gray-800">YouTube Downloader</h1>
+          <p className="text-sm text-gray-500">Still a work in progress, for educational purposes only 🫣</p>
         </div>
-        <div className="flex flex-col lg:flex-row gap-4">
+        <div className="flex flex-col md:flex-row gap-4">
           <Input
             id={"url"}
             value={values.url}
@@ -86,13 +85,14 @@ export default function Home() {
             className="flex-1 p-5"
             onChange={handleChange} />
           <Button
-            className="not-disabled:cursor-pointer"
+            className="not-disabled:cursor-pointer min-w-[150px]"
             onClick={getInfo}
-            disabled={!values.url || loading}>Get info</Button>
+            loading={loading}
+            disabled={!values.url}>Get info</Button>
         </div>
 
         {details ? (
-          <div className="p-3 border flex gap-4">
+          <div className="p-3 border border-gray-300 rounded flex gap-4">
             <Image
               alt=""
               width={320}
@@ -101,15 +101,17 @@ export default function Home() {
               src={details.thumbnails?.[details.thumbnails.length - 1]?.url} />
             <div className="flex flex-col justify-between">
               <div>
-                <div>{details.title}</div>
-                <div>{formatTime(Number(details.lengthSeconds))}</div>
+                <div>{getLimitedText(details.title)}</div>
+                <div className="text-sm text-gray-500">
+                  {formatTime(Number(details.lengthSeconds))}
+                </div>
               </div>
-              <div className="flex gap-4 flex-wrap">
+              <div className="flex gap-4 flex-wrap items-center">
                 <Select onValueChange={onValueChange}>
-                  <SelectTrigger >
+                  <SelectTrigger className="flex-1 p-3" >
                     <SelectValue placeholder="Select format" />
                   </SelectTrigger>
-                  <SelectContent className="w-full">
+                  <SelectContent>
                     <SelectGroup>
                       <SelectLabel>Formats</SelectLabel>
                       {formats.filter(x => x.hasAudio && x.hasVideo).map((v, i) => (
@@ -124,6 +126,7 @@ export default function Home() {
                 </Select>
                 {/* <Button>Download</Button> */}
                 <FileDownloader
+                  asButton
                   url={values.downloadURL}
                   filename={details.title}
                   disabled={!values.downloadURL} />
@@ -131,7 +134,7 @@ export default function Home() {
             </div>
           </div>
         ) : null}
-        {values.url ? (<Button onClick={handleReset}>Reset</Button>) : null}
+        {values.url ? (<Button onClick={handleReset} className="cursor-pointer">Reset</Button>) : null}
       </main>
       <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
         <a

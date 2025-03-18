@@ -15,3 +15,10 @@ export function formatTime(seconds: number) {
     return `${minutes} mins`;
   }
 }
+
+export function getLimitedText(text: string, limit = 200) {
+  if (text.length > limit) {
+    return `${text.substring(0, limit - 1)}...`
+  }
+  return text
+}

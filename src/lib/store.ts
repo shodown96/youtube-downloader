@@ -22,7 +22,7 @@ export const useDownloadStore = create(
         (set, get) => ({
             values: {
                 downloadURL: "",
-                url: "https://www.youtube.com/watch?v=P0aPK7wy6_8"
+                url: process.env.NODE_ENV === 'development' ? 'https://www.youtube.com/watch?v=P0aPK7wy6_8' : ''
             },
             details: null,
             formats: [],

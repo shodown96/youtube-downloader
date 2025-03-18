@@ -52,20 +52,24 @@ function FileDownloader({
             }
         };
     }, [fileData]);
-    if(!asButton){
+    if (!asButton) {
         return (
-            <a href={url} target="_blank" rel="noopener noreferrer" className='p-2 underline'>Download</a>
+            <a href={disabled ? "#" : url} target="_blank" rel="noopener noreferrer" className='p-2 underline'>
+                Download
+            </a>
         )
     }
     return (
-        <Button
-            type='button'
-            loading={loading}
-            onClick={handleDownload}
-            disabled={disabled}
-            className='not-disabled:cursor-pointer' >
-            {buttonText}
-        </Button>
+        <a href={disabled ? "#" : url} target="_blank" rel="noopener noreferrer" className='transparent'>
+            <Button
+                type='button'
+                // loading={loading}
+                // onClick={handleDownload}
+                disabled={disabled}
+                className='not-disabled:cursor-pointer bg-green-600 disabled:bg-green-700 hover:bg-green-700' >
+                {buttonText}
+            </Button>
+        </a>
     )
 }
 

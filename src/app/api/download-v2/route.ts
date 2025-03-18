@@ -9,8 +9,14 @@ export const GET = async (req: NextRequest, res: any) => {
         }, { status: 400 })
     }
     try {
-        const response = await axios.get(url);
-        if (response.status !== 200) throw new Error("Failed to fetch movie");
+        const response = await axios.get(url, {
+            responseType: 'blob',
+        });
+        if (response.status !== 200) {
+            console.log(response.data)
+            return
+            // throw new Error("Failed to fetch movie");
+        }
 
         // const headers = new Headers(response.headers);
         // headers.set("Content-Disposition", `attachment; filename="movie.mp4"`); // Force download
