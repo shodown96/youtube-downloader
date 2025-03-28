@@ -70,6 +70,7 @@ export default function Home() {
         setFormats(formats)
       }
     } catch (error) {
+      toast.error("Could not get video info. Please check back later.")
 
     } finally {
       setLoading(false)
@@ -167,15 +168,7 @@ export default function Home() {
 }
 
 
-{/* <Select onValueChange={handleChange("role")}>
-<SelectTrigger >
-  <SelectValue placeholder="Select role" />
-</SelectTrigger>
-<SelectContent className="w-full">
-  <SelectGroup>
-    <SelectLabel>Roles</SelectLabel>
-    <SelectItem value={AdminRole.ADMIN}>Admin</SelectItem>
-    <SelectItem value={AdminRole.SUPERADMIN}>Super Admin</SelectItem>
-  </SelectGroup>
-</SelectContent>
-</Select> */}
+
+{/* {values.url ? (<Button onClick={handleReset} className="cursor-pointer">
+  <RefreshCw />
+</Button>) : null} */}

@@ -10,6 +10,8 @@ export function formatTime(seconds: number) {
     const hours = Math.floor(seconds / 3600);
     const minutes = Math.floor((seconds % 3600) / 60);
     return minutes > 0 ? `${hours}:${minutes}` : `${hours} ${hours > 1 ? 'hr' : 'hrs'}`;
+  } else if (seconds < 60) {
+    return `${Math.floor(seconds)}s`;
   } else {
     const minutes = Math.floor(seconds / 60);
     return `${minutes} mins`;
@@ -23,7 +25,7 @@ export function getLimitedText(text: string, limit = 200) {
   return text
 }
 
-export function isValidYoutubeURL(url:string){
+export function isValidYoutubeURL(url: string) {
   const regex = /^(https?:\/\/)?(www\.)?(youtube\.com\/(watch\?v=|embed\/|shorts\/|live\/)|youtu\.be\/)([\w-]{11})(&.*)?$/;
   return regex.test(url);
 }
